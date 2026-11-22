@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Harsh Mohile — Implementation Engineer focused on Windows infrastructure, endpoint privilege management, server hardening and deployment operations.">
+  <meta name="theme-color" content="#0b1220">
+  <title>Harsh Mohile | Infrastructure & Cybersecurity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1220; --panel: #111c2e; --panel2: #142238; --line: #26364c;
+      --text: #edf3fa; --muted: #9aabc0; --accent: #69e0b2; --accent2: #9cebd0;
+      --max: 1160px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: Manrope, sans-serif; line-height: 1.65; }
+    body::before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.18; z-index:-1;
+      background-image: linear-gradient(rgba(105,224,178,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(105,224,178,.045) 1px, transparent 1px);
+      background-size: 48px 48px; mask-image: linear-gradient(to bottom, black, transparent 75%); }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width:min(var(--max), calc(100% - 48px)); margin:auto; }
+    .topbar { position:sticky; top:0; z-index:20; backdrop-filter:blur(16px); background:rgba(11,18,32,.86); border-bottom:1px solid rgba(38,54,76,.8); }
+    nav { min-height:76px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .brand { font-weight:800; letter-spacing:-.04em; font-size:1.08rem; }
+    .brand span { color:var(--accent); }
+    .navlinks { display:flex; align-items:center; gap:28px; color:var(--muted); font-size:.86rem; font-weight:600; }
+    .navlinks a:hover { color:var(--accent); }
+    .nav-cta { border:1px solid var(--accent); color:var(--accent); padding:10px 16px; border-radius:5px; }
+    .menu { display:none; background:none; border:1px solid var(--line); color:var(--text); border-radius:5px; padding:8px 11px; font:inherit; }
+    .hero { min-height:690px; display:grid; grid-template-columns:1.25fr .75fr; align-items:center; gap:64px; padding:88px 0 100px; }
+    .eyebrow { color:var(--accent); font:500 .76rem "DM Mono", monospace; letter-spacing:.12em; text-transform:uppercase; display:flex; align-items:center; gap:12px; }
+    .eyebrow:before { content:""; width:30px; height:1px; background:var(--accent); }
+    h1 { font-size:clamp(3rem, 7vw, 5.7rem); line-height:1.02; letter-spacing:-.075em; margin:22px 0; max-width:760px; }
+    h1 em { color:var(--accent); font-style:normal; }
+    .hero-copy { max-width:650px; color:var(--muted); font-size:1.06rem; }
+    .actions { display:flex; flex-wrap:wrap; gap:13px; margin-top:34px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; padding:13px 19px; border-radius:5px; font-weight:700; font-size:.88rem; transition:.25s ease; border:1px solid var(--line); }
+    .btn.primary { color:#07150f; background:var(--accent); border-color:var(--accent); }
+    .btn:hover { transform:translateY(-3px); }
+    .btn.secondary:hover { border-color:var(--accent); color:var(--accent); }
+    .hero-card { position:relative; padding:28px; border:1px solid var(--line); border-radius:9px; background:linear-gradient(145deg, rgba(20,34,56,.96), rgba(12,21,36,.94)); box-shadow:0 28px 80px rgba(0,0,0,.25); }
+    .hero-card:before { content:""; position:absolute; width:90px; height:3px; background:var(--accent); top:-1px; left:28px; }
+    .terminal-top { display:flex; gap:7px; padding-bottom:20px; border-bottom:1px solid var(--line); }
+    .dot { width:8px; height:8px; border-radius:50%; background:#52657c; }
+    .terminal-label { margin-left:auto; color:#71869f; font: .68rem "DM Mono", monospace; }
+    .terminal-body { padding-top:20px; font: .82rem/2 "DM Mono", monospace; color:#a9bad0; }
+    .terminal-body .prompt { color:var(--accent); }
+    .terminal-body .value { color:#f0f5fa; }
+    .status { display:flex; align-items:center; gap:9px; margin-top:22px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.76rem; }
+    .status i { width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 12px var(--accent); }
+    section { padding:96px 0; border-top:1px solid rgba(38,54,76,.65); }
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:30px; margin-bottom:42px; }
+    .section-kicker { color:var(--accent); font: .72rem "DM Mono", monospace; letter-spacing:.12em; text-transform:uppercase; }
+    h2 { font-size:clamp(2rem,4vw,3.1rem); letter-spacing:-.06em; line-height:1.1; margin:12px 0 0; }
+    .section-intro { max-width:430px; color:var(--muted); margin:0; font-size:.94rem; }
+    .about-grid { display:grid; grid-template-columns:1.1fr .9fr; gap:60px; }
+    .about-text { color:var(--muted); font-size:1rem; }
+    .about-text strong { color:var(--text); font-weight:700; }
+    .facts { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .fact { background:var(--panel); border:1px solid var(--line); padding:20px; border-radius:7px; }
+    .fact b { display:block; font-size:1.55rem; letter-spacing:-.05em; color:var(--accent); }
+    .fact span { color:var(--muted); font-size:.78rem; }
+    .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; }
+    .skill-card { background:var(--panel); border:1px solid var(--line); border-radius:7px; padding:24px; transition:.25s; }
+    .skill-card:hover { transform:translateY(-5px); border-color:rgba(105,224,178,.65); }
+    .skill-index { color:var(--accent); font: .72rem "DM Mono", monospace; }
+    .skill-card h3 { font-size:1.08rem; margin:16px 0 10px; }
+    .skill-card p { color:var(--muted); font-size:.85rem; margin:0; }
+    .tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:17px; }
+    .tag { border:1px solid #30445e; color:#c1cede; padding:5px 9px; border-radius:3px; font: .69rem "DM Mono", monospace; }
+    .timeline { position:relative; margin-left:8px; }
+    .timeline:before { content:""; position:absolute; left:5px; top:8px; bottom:8px; width:1px; background:var(--line); }
+    .job { position:relative; padding:0 0 42px 42px; }
+    .job:last-child { padding-bottom:0; }
+    .job:before { content:""; position:absolute; left:0; top:8px; width:11px; height:11px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 5px rgba(105,224,178,.1); }
+    .job-meta { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; color:var(--muted); font: .72rem "DM Mono", monospace; }
+    .job h3 { font-size:1.3rem; margin:8px 0 2px; }
+    .company { color:var(--accent2); font-size:.9rem; font-weight:700; }
+    .job ul { color:var(--muted); padding-left:18px; margin:17px 0 0; }
+    .job li { padding:4px 0; }
+    .credential-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .credential { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:24px; background:var(--panel); border:1px solid var(--line); border-radius:7px; }
+    .credential h3 { font-size:1rem; margin:0 0 5px; }
+    .credential p { color:var(--muted); font-size:.8rem; margin:0; }
+    .arrow { color:var(--accent); font-size:1.25rem; }
+    .certificate-slot { margin-top:18px; padding:24px; border:1px dashed #49617c; border-radius:7px; background:rgba(17,28,46,.55); }
+    .certificate-slot p { margin:5px 0 0; color:var(--muted); font-size:.84rem; }
+    .certificate-slot code { color:var(--accent); font: .75rem "DM Mono", monospace; }
+    .contact-panel { display:flex; justify-content:space-between; align-items:center; gap:30px; padding:42px; border:1px solid var(--line); border-radius:9px; background:linear-gradient(120deg,#14263b,#101b2c); }
+    .contact-panel p { color:var(--muted); margin:12px 0 0; max-width:540px; }
+    footer { padding:28px 0; color:#71839a; font-size:.75rem; border-top:1px solid var(--line); }
+    footer .wrap { display:flex; justify-content:space-between; gap:20px; }
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .cursor { display:inline-block; width:8px; height:1em; background:var(--accent); vertical-align:-.12em; margin-left:4px; animation:blink 1s steps(2,start) infinite; }
+    @keyframes blink { to { visibility:hidden; } }
+    @media (max-width:850px) {
+      .hero { grid-template-columns:1fr; gap:42px; min-height:auto; padding:78px 0; }
+      .hero-card { max-width:580px; }
+      .about-grid { grid-template-columns:1fr; gap:28px; }
+      .skills-grid { grid-template-columns:1fr 1fr; }
+      .section-head { align-items:start; flex-direction:column; }
+    }
+    @media (max-width:600px) {
+      .wrap { width:min(100% - 34px, var(--max)); }
+      nav { min-height:66px; }
+      .menu { display:block; }
+      .navlinks { display:none; position:absolute; top:66px; left:0; right:0; padding:20px 24px 24px; background:#0d1727; border-bottom:1px solid var(--line); flex-direction:column; align-items:stretch; gap:17px; }
+      .navlinks.open { display:flex; }
+      .nav-cta { text-align:center; }
+      .hero { padding:66px 0 76px; }
+      h1 { font-size:clamp(2.8rem,14vw,4.2rem); }
+      section { padding:72px 0; }
+      .skills-grid, .credential-grid { grid-template-columns:1fr; }
+      .facts { gap:9px; }
+      .fact { padding:15px; }
+      .contact-panel { padding:26px; flex-direction:column; align-items:flex-start; }
+      footer .wrap { flex-direction:column; }
+    }
+
+    .certificate-gallery { margin-top:32px; }
+    .gallery-heading { display:flex; align-items:end; justify-content:space-between; gap:20px; margin-bottom:18px; }
+    .gallery-heading h3 { margin:8px 0 0; font-size:1.25rem; }
+    .text-link { color:var(--accent); font-size:.82rem; font-weight:700; }
+    .certificate-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+    .certificate-card { display:block; overflow:hidden; background:var(--panel); border:1px solid var(--line); border-radius:7px; transition:.25s ease; }
+    .certificate-card:hover { transform:translateY(-4px); border-color:rgba(105,224,178,.65); }
+    .certificate-card img { display:block; width:100%; aspect-ratio:1.42/1; object-fit:contain; background:#e9edf2; }
+    .certificate-card span { display:block; padding:14px 16px; }
+    .certificate-card b,.certificate-card small { display:block; }
+    .certificate-card b { font-size:.9rem; }
+    .certificate-card small { margin-top:4px; color:var(--muted); font-size:.75rem; }
+    .education-note { margin-top:18px; padding:23px; background:var(--panel); border:1px solid var(--line); border-radius:7px; }
+    .education-note h3 { margin:8px 0 3px; font-size:1.05rem; }
+    .education-note p { margin:0; color:var(--muted); font-size:.82rem; }
+    .project-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; }
+    .project-card { padding:24px; border:1px solid var(--line); border-radius:7px; background:var(--panel); transition:.25s ease; }
+    .project-card:hover { transform:translateY(-5px); border-color:rgba(105,224,178,.65); }
+    .project-card h3 { margin:15px 0 9px; font-size:1.08rem; }
+    .project-card p { color:var(--muted); font-size:.84rem; }
+    @media (max-width:850px) { .project-grid { grid-template-columns:1fr 1fr; } }
+    @media (max-width:600px) { .certificate-grid,.project-grid { grid-template-columns:1fr; } .gallery-heading { align-items:flex-start; flex-direction:column; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; transition-duration:.01ms !important; }
+      .reveal { opacity:1; transform:none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <nav aria-label="Main navigation">
+        <a class="brand" href="#home">HM<span>.</span></a>
+        <button class="menu" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+        <div class="navlinks" id="navlinks">
+          <a href="#about">About</a><a href="#expertise">Expertise</a><a href="#experience">Experience</a><a href="#credentials">Credentials</a>
+          <a href="#projects">Projects</a><a class="nav-cta" href="#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="hero" id="home" style="border:0">
+        <div>
+          <div class="eyebrow">Infrastructure · Endpoint Security · Implementation</div>
+          <h1>Building secure<br>systems. <em>Making</em><br>IT dependable.</h1>
+          <p class="hero-copy">I'm Harsh Mohile, an Implementation Engineer working across Windows infrastructure, endpoint privilege management, server hardening and enterprise deployment operations.</p>
+          <div class="actions">
+            <a class="btn primary" href="#experience">Explore my work</a>
+            <a class="btn secondary" href="mailto:harshmohile9802@gmail.com">Get in touch</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Technical profile snapshot">
+          <div class="terminal-top"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="terminal-label">PROFILE / OVERVIEW</span></div>
+          <div class="terminal-body">
+            <div><span class="prompt">profile</span> : <span class="value">"Harsh Mohile"</span></div>
+            <div><span class="prompt">role</span> : <span class="value">"Implementation Engineer"</span></div>
+            <div><span class="prompt">focus</span> : <span class="value">"Infrastructure & Security"</span></div>
+            <div><span class="prompt">speciality</span> : <span class="value">"Endpoint Privilege Management"</span></div>
+            <div><span class="prompt">location</span> : <span class="value">"Mumbai, India"</span></div>
+            <div><span class="prompt">availability</span> : <span class="value">"Immediate Joiner"</span></div>
+            <div><span class="prompt">status</span> : <span class="value">"Ready for the next challenge"</span><span class="cursor"></span></div>
+          </div>
+          <div class="status"><i></i> Focused on reliable, secure deployments</div>
+        </aside>
+      </section>
+
+      <section id="about" class="reveal">
+        <div class="section-head"><div><div class="section-kicker">01 / Profile</div><h2>Practical infrastructure.<br>Security-minded execution.</h2></div>
+          <p class="section-intro">A hands-on approach to implementation, endpoint controls and operational documentation.</p></div>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>I am an IT Infrastructure and Implementation Engineer with experience supporting enterprise environments, preparing Windows Server deployments and coordinating application and endpoint operations.</p>
+            <p>My work includes <strong>Windows Server hardening, Active Directory administration, Group Policy, IIS configuration, patch deployment</strong> and endpoint privilege management. I have also created end-to-end technical documentation covering server hardening procedures and the deployment of required patches.</p>
+            <p>I value clear documentation, repeatable processes and practical troubleshooting — the details that help infrastructure remain secure, stable and supportable.</p>
+          </div>
+          <div class="facts">
+            <div class="fact"><b>600+</b><span>Enterprise users supported</span></div>
+            <div class="fact"><b>Windows</b><span>Server & infrastructure focus</span></div>
+            <div class="fact"><b>EPM</b><span>Endpoint Privilege Management</span></div>
+            <div class="fact"><b>End-to-end</b><span>Technical deployment documentation</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="expertise" class="reveal">
+        <div class="section-head"><div><div class="section-kicker">02 / Technical expertise</div><h2>Core capabilities.</h2></div>
+          <p class="section-intro">Infrastructure and security skills developed through implementation, support and deployment work.</p></div>
+        <div class="skills-grid">
+          <article class="skill-card"><span class="skill-index">01 — SYSTEMS</span><h3>Windows & Linux Infrastructure</h3><p>Server environment preparation, configuration, administration and operational support.</p><div class="tags"><span class="tag">Windows Server</span><span class="tag">Linux Server</span><span class="tag">Active Directory</span><span class="tag">Group Policy</span><span class="tag">IIS</span><span class="tag">RDS</span></div></article>
+          <article class="skill-card"><span class="skill-index">02 — ENDPOINT SECURITY</span><h3>Endpoint Privilege Management</h3><p>Product implementation expertise and practical understanding of endpoint security controls and privilege governance.</p><div class="tags"><span class="tag">EPM</span><span class="tag">Endpoint Security</span><span class="tag">Access Control</span><span class="tag">Hardening</span></div></article>
+          <article class="skill-card"><span class="skill-index">03 — DEPLOYMENT</span><h3>Implementation & Operations</h3><p>Deployment coordination, patching, environment validation and post-deployment troubleshooting.</p><div class="tags"><span class="tag">Patch Management</span><span class="tag">PowerShell</span><span class="tag">Firewall Rules</span><span class="tag">TCP/IP</span></div></article>
+          <article class="skill-card"><span class="skill-index">04 — APPLICATIONS</span><h3>Application & Database Setup</h3><p>Support for application deployment and configuration of associated services and dependencies.</p><div class="tags"><span class="tag">MySQL</span><span class="tag">Flyway</span><span class="tag">RabbitMQ</span><span class="tag">Visual Studio</span></div></article>
+          <article class="skill-card"><span class="skill-index">05 — DOCUMENTATION</span><h3>Technical Documentation</h3><p>Structured, repeatable guides for server setup, hardening, patch deployment and operational handover.</p><div class="tags"><span class="tag">SOPs</span><span class="tag">Hardening Guides</span><span class="tag">Deployment Guides</span></div></article>
+          <article class="skill-card"><span class="skill-index">06 — SUPPORT</span><h3>Enterprise IT Support</h3><p>End-user support, asset coordination, diagnostics and collaboration with technical stakeholders.</p><div class="tags"><span class="tag">Wireshark</span><span class="tag">Altiris</span><span class="tag">Symantec Agent</span><span class="tag">Git</span></div></article>
+        </div>
+      </section>
+
+      <section id="experience" class="reveal">
+        <div class="section-head"><div><div class="section-kicker">03 / Career</div><h2>Professional experience.</h2></div>
+          <p class="section-intro">Implementation, infrastructure support and deployment work in enterprise environments.</p></div>
+        <div class="timeline">
+          <article class="job">
+            <div class="job-meta"><span>2026 — PRESENT</span><span>MUMBAI, INDIA</span></div>
+            <h3>Implementation Engineer</h3><div class="company">Iraje Software Pvt. Ltd.</div>
+            <ul>
+              <li>Supported Windows Server implementation, environment preparation, validation and deployment documentation.</li>
+              <li>Configured Active Directory, Organizational Units, user accounts, access permissions, Group Policy and Remote Desktop Services.</li>
+              <li>Worked on Endpoint Privilege Management (EPM), including product implementation and technical documentation.</li>
+              <li>Created end-to-end documentation for server hardening and deployment of required patches.</li>
+              <li>Assisted with IIS application deployment, application pool configuration, service setup and environment validation.</li>
+              <li>Supported MySQL, MySQL Workbench, Flyway migrations, deployment dependencies, firewall and port configuration.</li>
+            </ul>
+          </article>
+          <article class="job">
+            <div class="job-meta"><span>NOV 2024 — JAN 2026</span><span>MUMBAI, INDIA</span></div>
+            <h3>IT Engineer</h3><div class="company">Pentagon Services Pvt. Ltd. · Deployed at Crédit Agricole CIB Services Pvt. Ltd.</div>
+            <ul>
+              <li>Delivered on-site IT infrastructure support to help maintain uninterrupted enterprise operations.</li>
+              <li>Executed patch deployment, endpoint maintenance, system troubleshooting and infrastructure support.</li>
+              <li>Provided technical support to 600+ users, resolving hardware, software and access-related issues.</li>
+              <li>Managed asset tracking, inventory coordination, hardware deployment and infrastructure documentation.</li>
+              <li>Assisted with switch and firewall installation, deployment coordination and environment readiness.</li>
+              <li>Used Wireshark, Altiris and Symantec Agent for issue diagnosis, monitoring and endpoint support.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="credentials" class="reveal">
+        <div class="section-head"><div><div class="section-kicker">04 / Credentials</div><h2>Certifications & recognition.</h2></div><p class="section-intro">Verified learning and professional development across cybersecurity, identity, and technical operations.</p></div>
+        <div class="credential-grid">
+          <article class="credential"><div><h3>Executive Certificate Program in Cyber Security</h3><p>C3iCenter, CSE Department · IIT Kanpur · 7 Jun – 21 Dec 2025</p></div><span class="arrow">↗</span></article>
+          <article class="credential"><div><h3>Security, Compliance, and Identity Fundamentals (SC-900)</h3><p>Microsoft · 11 February 2026 · Certificate code: 9734447</p></div><span class="arrow">↗</span></article>
+          <article class="credential"><div><h3>Certificate of Appreciation — Sr. Treasurer</h3><p>Computer Society of India, VESIT Student Branch · 2023–24</p></div><span class="arrow">↗</span></article>
+          <article class="credential"><div><h3>Communication & Customer Service Skills</h3><p>Sutherland · 5-day training module · August 2024</p></div><span class="arrow">↗</span></article>
+        </div>
+        <div class="certificate-gallery">
+          <div class="gallery-heading"><div><div class="section-kicker">CERTIFICATE ARCHIVE</div><h3>Credentials at a glance.</h3></div><a class="text-link" href="https://www.linkedin.com/in/harsh-mohile-7t7/" target="_blank" rel="noopener">View LinkedIn profile ↗</a></div>
+          <div class="certificate-grid">
+            <a class="certificate-card" href="certificates/iit-kanpur-cybersecurity.png" target="_blank"><img src="certificates/iit-kanpur-cybersecurity.png" alt="IIT Kanpur cybersecurity certificate"><span><b>IIT Kanpur</b><small>Executive Certificate in Cyber Security</small></span></a>
+            <a class="certificate-card" href="certificates/microsoft-sc900.png" target="_blank"><img src="certificates/microsoft-sc900.png" alt="Microsoft SC-900 certificate"><span><b>Microsoft SC-900</b><small>Security, Compliance & Identity Fundamentals</small></span></a>
+            <a class="certificate-card" href="certificates/csi-appreciation.png" target="_blank"><img src="certificates/csi-appreciation.png" alt="CSI VESIT appreciation certificate"><span><b>CSI — VESIT</b><small>Senior Treasurer · 2023–24</small></span></a>
+            <a class="certificate-card" href="certificates/sutherland-training.png" target="_blank"><img src="certificates/sutherland-training.png" alt="Sutherland participation certificate"><span><b>Sutherland</b><small>Communication & Customer Service Skills</small></span></a>
+          </div>
+        </div>
+        <div class="education-note"><div class="section-kicker">EDUCATION</div><h3>B.E. — Electronics & Telecommunication</h3><p>Vivekanand Education Society’s Institute of Technology · 2020–2024 · Chembur, Mumbai</p></div>
+      </section>
+      <section id="projects" class="reveal">
+        <div class="section-head"><div><div class="section-kicker">05 / Selected work</div><h2>Technical work & focus areas.</h2></div><p class="section-intro">A concise view of implementation and security work. Detailed case studies can be added as project write-ups are cleared for public sharing.</p></div>
+        <div class="project-grid">
+          <article class="project-card"><span class="skill-index">01 — SERVER SECURITY</span><h3>Windows Server Hardening</h3><p>End-to-end procedural documentation covering server hardening steps, configuration checks and deployment of required patches.</p><div class="tags"><span class="tag">Windows Server</span><span class="tag">Hardening</span><span class="tag">Patch Deployment</span></div></article>
+          <article class="project-card"><span class="skill-index">02 — ENDPOINT CONTROLS</span><h3>Endpoint Privilege Management</h3><p>Product implementation experience and supporting technical documentation for endpoint privilege management workflows.</p><div class="tags"><span class="tag">EPM</span><span class="tag">Endpoint Security</span><span class="tag">Documentation</span></div></article>
+          <article class="project-card"><span class="skill-index">03 — INFRASTRUCTURE</span><h3>Windows Environment Deployment</h3><p>Implementation support across Active Directory, Group Policy, Remote Desktop Services, IIS and environment validation.</p><div class="tags"><span class="tag">Active Directory</span><span class="tag">GPO</span><span class="tag">IIS</span></div></article>
+        </div>
+      </section>
+      <section id="contact" class="reveal">
+        <div class="contact-panel">
+          <div><div class="section-kicker">06 / Contact</div><h2>Let’s talk infrastructure.</h2><p>Open to opportunities in IT infrastructure, implementation engineering, endpoint security and technical operations.</p></div>
+          <div class="actions">
+            <a class="btn primary" href="mailto:harshmohile9802@gmail.com">Email Harsh</a>
+            <a class="btn secondary" href="tel:+917678079156">Call</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer><div class="wrap"><span>© <span id="year"></span> Harsh Mohile. All rights reserved.</span><span>Mumbai, India · Infrastructure & Cybersecurity · <a href="https://www.linkedin.com/in/harsh-mohile-7t7/" target="_blank" rel="noopener">LinkedIn</a></span></div></footer>
+  <script>
+    const menuButton = document.querySelector('.menu');
+    const navlinks = document.querySelector('.navlinks');
+    menuButton.addEventListener('click', () => {
+      const open = navlinks.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(open));
+    });
+    navlinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navlinks.classList.remove('open'); menuButton.setAttribute('aria-expanded', 'false');
+    }));
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
